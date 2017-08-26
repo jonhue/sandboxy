@@ -134,7 +134,7 @@ Whenever you authenticate your API's consumer, just make sure to set the `$sandb
 
 ## To Do
 
-* Automatically add `sandbox` column to new database tables
+* Add tests
 
 ---
 
