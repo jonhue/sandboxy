@@ -1,0 +1,29 @@
+class SandboxyMigration < ActiveRecord::Migration<%= migration_version %>
+    def self.change
+        <% unless options[:tables] %>
+        # Adds `sandbox` column to all existing tables
+        tables = ActiveRecord::Base.connection.tables - ['schema_migrations']
+        tables.each do |table|
+            add_column table, :sandbox, :boolean, default: false, null: false
+        end
+
+        # # Adds `sandbox` column only to specified tables
+        # tables = [:table1, :table2, :table3] # <= list your tables here!
+        # tables.each do |table_name|
+        #     add_column table, :sandbox, :boolean, default: false, null: false
+        # end
+        <% else %>
+        # # Adds `sandbox` column to all existing tables
+        # tables = ActiveRecord::Base.connection.tables - ['schema_migrations']
+        # tables.each do |table|
+        #     add_column table, :sandbox, :boolean, default: false, null: false
+        # end
+
+        # Adds `sandbox` column only to specified tables
+        tables = <%= options[:tables] %> # <= list your tables here!
+        tables.each do |table_name|
+            add_column table, :sandbox, :boolean, default: false, null: false
+        end
+        <% end %>
+    end
+end
