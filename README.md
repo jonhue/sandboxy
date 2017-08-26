@@ -1,8 +1,8 @@
-# Sandboxy - virtual data-based environments for Rails
+# Sandboxy - virtual data-oriented environments for Rails
 
 <img src="https://travis-ci.org/slooob/sandboxy.svg?branch=master" /> [![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy)
 
-Sandboxy allows to run two virtual data-based environments inside a Rails application while being able to switch in between at runtime.
+Sandboxy allows you to use two virtual data-oriented environments inside a Rails application while being able to switch in between at runtime.
 
 ---
 

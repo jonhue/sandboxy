@@ -5,8 +5,8 @@ Gem::Specification.new do |gem|
     gem.name                  = 'sandboxy'
     gem.version               = Sandboxy::VERSION
     gem.platform              = Gem::Platform::RUBY
-    gem.summary               = 'Add a Sandbox to your Rails app'
-    gem.description           = 'Sandboxy adds a layer to specified ActiveRecord models to use live & sandbox data in the same environment & database.'
+    gem.summary               = 'Virtual data-oriented environments for Rails'
+    gem.description           = 'Sandboxy allows you to use two virtual data-oriented environments inside a Rails application while being able to switch in between at runtime.'
     gem.authors               = 'Slooob'
     gem.email                 = 'developer@slooob.com'
     gem.homepage              = 'https://developer.slooob.com/open-source'
@@ -17,7 +17,7 @@ Gem::Specification.new do |gem|
 
     gem.post_install_message  = IO.read('INSTALL.md')
 
-    gem.required_ruby_version = '>= 2.3'
+    gem.required_ruby_version = '>= 2.0'
 
     gem.add_dependency 'rails', '>= 4.0'
 end
