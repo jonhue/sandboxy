@@ -28,6 +28,10 @@ class SandboxyGenerator < Rails::Generators::Base
         template 'sandboxy.rb.erb', 'config/initializers/sandboxy.rb'
     end
 
+    def create_model
+        template 'sandbox.rb', 'app/models/sandbox.rb'
+    end
+
     def show_readme
         readme 'README.md'
     end

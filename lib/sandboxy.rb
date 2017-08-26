@@ -2,7 +2,8 @@ require 'sandboxy/version'
 
 module ActsAsFavoritor
 
-    autoload :Sandboxy, 'sandboxy/sandboxy'
+    autoload :Sandboxed, 'sandboxy/sandboxed'
+    autoload :SandboxScopes, 'sandboxy/sandbox_scopes'
 
     require 'sandboxy/railtie'
 
