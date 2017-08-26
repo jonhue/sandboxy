@@ -1,8 +1,8 @@
-# `sandboxy` - Add a Sandbox to your Rails app
+# Sandboxy - virtual data-based environments for Rails
 
 <img src="https://travis-ci.org/slooob/sandboxy.svg?branch=master" /> [![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy)
 
-Sandboxy adds a layer to specified ActiveRecord models to use live & sandbox data in the same environment & database. When the sandbox is enabled, your app will only use sandbox data for all ActiveRecord models `sandboxy` has been enabled on. The other way around, if the sandbox is enabled, your app will exclude any sandbox data.
+Sandboxy allows to run two virtual data-based environments inside a Rails application while being able to switch in between at runtime.
 
 ---
 
@@ -10,11 +10,10 @@ Sandboxy adds a layer to specified ActiveRecord models to use live & sandbox dat
 
 * [Installation](#installation)
 * [Usage](#usage)
-    * [Database](#Database)
-    * [ActiveRecord Models](#activerecord-models)
-        * [Adding sandbox functionality to all models](#adding-sandbox-functionality-to-all-models)
-    * [Controllers](#contributors)
-        * [Grape](#grape)
+    * [Setup](#setup)
+    * [Sandboxed methods](#sandboxed-methods)
+    * [Switching environments](#switching-environments)
+        * [Sandbox & APIs](#sandbox-&-apis)
 * [To Do](#to-do)
 * [Contributing](#contributing)
     * [Contributors](#contributors)
@@ -24,7 +23,7 @@ Sandboxy adds a layer to specified ActiveRecord models to use live & sandbox dat
 
 ## Installation
 
-`sandboxy` works with Rails 4.0 onwards. You can add it to your `Gemfile` with:
+Sandboxy works with Rails 4.0 onwards. You can add it to your `Gemfile` with:
 
 ```ruby
 gem 'sandboxy'
@@ -48,67 +47,88 @@ Now run the generator:
 
     $ rails g sandboxy
 
-You can set your default `$sandbox` indicator by adding `--default true`. Learn more about usage [here](#usage).
-
-Additionally you are able to specify to which database tables `sandboxy` should be added by passing an array of tables with the `--tables` option. Learn more about databases with `sandboxy` [here](#database).
+You can specify that your application should use the sandbox by default by passing `--default true`. Learn more about switching environments [here](#switching-environments).
 
 To wrap things up, migrate the changes into your database:
 
     $ rails db:migrate
 
-**Note:** You might want to read more about `sandboxy` [Databases](#database) before migrating your database. Use `rake db:migrate` instead if you run Rails < 5.
+**Note:** Use `rake db:migrate` instead if you run Rails < 5.
 
-This will create an initializer as well as a migration file.
+This will create an initializer as well as a migration file and the `Sandbox` model.
 
 ## Usage
 
-Sandboxy is separated into three main parts, allowing the app to enter and leave sandbox mode at runtime.
+### Setup
 
-### Database
-
-After running the `sandboxy` generator, a migration file has been added. Running it adds a column named `sandbox` to every table existing. Now the `sandbox` database column is needed to differentiate between records created in sandbox or live mode.
-
-If you only want to use `sandboxy` for specific ActiveRecord models you might want to consider updating the migration file to only add the column to their related tables.
-
-Also make sure that all future tables added to your database contain a `sandbox` column if you are using `sandboxy` for their related models.
-
-**Note:** You should not use `sandbox` columns in your database for any other purpose that might result in duplicating the column or later removing at accidentally.
-
-### ActiveRecord Models
-
-Within all ActiveRecord models of your application, you are able to add sandbox functionality by adding:
+Add Sandboxy to the models where you want to separate live & sandbox reocrds:
 
 ```ruby
-sandboxy
-```
-
-#### Adding sandbox functionality to all models
-
-If you are running Rails > 5, you could just add `sandboxy` into your `application_record.rb` file located in `app/models`.
-
-For Rails < 5, you have to create a separate model, which inherits from the `ActiveRecord::Base` class:
-
-```ruby
-class Sandboxy < ActiveRecord::Base
+class Foo < ApplicationRecord
     sandboxy
 end
 ```
 
-Now all models you want to add `sandboxy` to, can just inherit from the `Sandboxy` class instead.
+In most use cases you would want to add sandboxy to a lot of ActiveRecord models if not all. To simplify that you could create a new class and let all your models inherit from it:
 
-**Note:** This method applies to Rails > 5 as well.
+```ruby
+class Sandboxy < ApplicationRecord
+    sandboxy
+end
 
-### Controllers
+class Foo < Sandboxy
+end
+```
 
-While the `config/initializers/sandboxy.rb` file indicates whether or not the sandbox is currently active, you are also able to change the mode on the fly at runtime.
+### Sandboxed methods
 
-For that just override the global `$sandbox` variable and set it to either `true` or `false`. You can do that from anywhere in your app, but it makes sense to do it in your controllers.
+By default you can only access records belonging to the current environment (`live` or `sandbox`):
 
-#### Grape
+```ruby
+$sandbox = true
+Foo.all # => returns all sandbox foo's
+```
 
-You can also use `sandboxy` with Grape APIs. That's especially, when you to provide separate credentials for live & sandbox to your consumers.
+Now to access the records belonging to a certain group regardless of your current environment, you can use:
 
-With `sandboxy` you can now set `$sandbox` on authentication accordingly.
+```ruby
+Foo.live # => returns all live foo's
+Foo.sandboxed # => returns all sandbox foo's
+Foo.desandbox # => returns all foo's
+```
+
+Let's check to which environment this `Foo` belongs:
+
+```ruby
+foo = Foo.create!
+foo.live? # => false
+foo.sandboxed? # => true
+```
+
+You should keep in mind that when you create a new record, it will automatically belong to your app's current environment.
+
+Don't worry, you can move records between environments:
+
+```ruby
+foo.make_live
+foo.live? # => true
+foo.make_sandboxed
+foo.sandboxed? # => true
+```
+
+### Switching environments
+
+In `config/initializers/sandboxy.rb` you define your app's default environment by setting the `$sandbox` variable.
+
+You can override that variable anywhere in your application. That makes Sandboxy super flexible.
+
+#### Sandbox & APIs
+
+It's flexibility allows Sandboxy to work really well with APIs.
+
+Typically an API provides two sets of authentication credentials for a consumer - one for live access and one for sandbox/testing.
+
+Whenever you authenticate your API's consumer, just make sure to set the `$sandbox` variable accordingly to the credential the consumer used. From thereon, Sandboxy will make sure that your consumer only reads & updates data from the environment he is in.
 
 ---
 
@@ -120,7 +140,7 @@ With `sandboxy` you can now set `$sandbox` on authentication accordingly.
 
 ## Contributing
 
-We hope that you will consider contributing to `sandboxy`. Please read this short overview for some information about how to get started:
+We hope that you will consider contributing to Sandboxy. Please read this short overview for some information about how to get started:
 
 [Learn more about contributing to this repository](https://github.com/slooob/sandboxy/blob/master/CONTRIBUTING.md), [Code of Conduct](https://github.com/slooob/sandboxy/blob/master/CODE_OF_CONDUCT.md)
 

@@ -8,7 +8,6 @@ class SandboxyGenerator < Rails::Generators::Base
     source_root File.join File.dirname(__FILE__), 'templates'
     desc 'Install sandboxy'
     class_option :default, desc: 'Set the default $sandbox indicator', type: :boolean, default: false, aliases: '-d'
-    class_option :tables, desc: 'Specify tables for which to enable sandboxy', type: :string, aliases: '-t'
 
     def self.next_migration_number dirname
         if ActiveRecord::Base.timestamped_migrations
@@ -19,8 +18,6 @@ class SandboxyGenerator < Rails::Generators::Base
     end
 
     def create_migration_file
-        require 'json'
-        options[:tables] = JSON.parse(options[:tables]) if options.has_key?(:tables)
         migration_template 'migration.rb.erb', 'db/migrate/sandboxy_migration.rb', migration_version: migration_version
     end
 

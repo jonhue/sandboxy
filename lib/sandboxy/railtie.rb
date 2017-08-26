@@ -1,5 +1,6 @@
 require 'rails'
 
+
 module Sandboxy
     class Railtie < Rails::Railtie
 

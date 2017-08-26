@@ -11,16 +11,19 @@ module Sandboxy
                 has_one :sandbox, as: :sandboxed, dependent: :destroy
                 include Sandboxy::Sandboxed::InstanceMethods
 
-                scope :live, -> { left_outer_joins(:sandbox).where(sandbox: { id: nil }) }
-                scope :sandboxed, -> { left_outer_joins(:sandbox).where.not(sandbox: { id: nil }) }
+                scope :live_scoped, -> { left_outer_joins(:sandbox).where(sandbox: { id: nil }) }
+                scope :sandboxed_scoped, -> { left_outer_joins(:sandbox).where.not(sandbox: { id: nil }) }
                 default_scope where(
                     case $sandbox
-                    when true then { sandboxed }
-                    when false then { live }
+                    when true then { sandboxed_scoped }
+                    when false then { live_scoped }
                     end
                 )
+                scope :live, -> { unscope.live_scoped }
+                scope :sandboxed, -> { unscope.sandboxed_scoped }
+                scope :desandbox, -> { unscope.all }
 
-                before_save :make_sandboxed
+                # before_save :make_sandboxed # -> should be handled automatically through default_scope
             end
 
         end
@@ -28,7 +31,7 @@ module Sandboxy
         module InstanceMethods
 
             def make_sandboxed
-                self.build_sandbox if $sandbox == true && self.sendbox.present? == false
+                self.build_sandbox unless self.sandbox.present?
             end
 
             def make_live
