@@ -114,7 +114,6 @@ With `sandboxy` you can now set `$sandbox` on authentication accordingly.
 
 ## To Do
 
-* Create new records with `sandbox: true` if the sandbox is currently enabled!
 * Automatically add `sandbox` column to new database tables
 
 ---
