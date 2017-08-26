@@ -102,7 +102,13 @@ Now all models you want to add `sandboxy` to, can just inherit from the `Sandbox
 
 While the `config/initializers/sandboxy.rb` file indicates whether or not the sandbox is currently active, you are also able to change the mode on the fly at runtime.
 
-For that just override the global `$sandbox` variable and set it to either `true` or `false`. You can do that from anywhere in your app, but it makes sense to do it in your controllers. Especially for APIs that is useful, because you can now provide separate credentials for live & sandbox and set `$sandbox` on authentication accordingly.
+For that just override the global `$sandbox` variable and set it to either `true` or `false`. You can do that from anywhere in your app, but it makes sense to do it in your controllers.
+
+#### Grape
+
+You can also use `sandboxy` with Grape APIs. That's especially, when you to provide separate credentials for live & sandbox to your consumers.
+
+With `sandboxy` you can now set `$sandbox` on authentication accordingly.
 
 ---
 
