@@ -13,7 +13,7 @@ Sandboxy allows you to use two virtual data-oriented environments inside a Rails
     * [Setup](#setup)
     * [Sandboxed methods](#sandboxed-methods)
     * [Switching environments](#switching-environments)
-        * [Sandbox & APIs](#sandbox-&-apis)
+        * [Sandbox & APIs](#sandbox--apis)
 * [To Do](#to-do)
 * [Contributing](#contributing)
     * [Contributors](#contributors)
