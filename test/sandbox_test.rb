@@ -2,7 +2,17 @@ require File.dirname(__FILE__) + '/test_helper'
 
 class SandboxTest < ActiveSupport::TestCase
 
-    context '#sandbox' do
+    context 'scopes' do
+        should 'be defined' do
+            assert Some.respond_to? :live_scoped
+            assert Some.respond_to? :sandboxed_scoped
+            assert Some.respond_to? :live
+            assert Some.respond_to? :sandboxed
+            assert Some.respond_to? :desandbox
+        end
+    end
+
+    context 'sandbox' do
         setup do
             @post = FactoryGirl.create :post
             @purchase = FactoryGirl.create :purchase
@@ -11,7 +21,7 @@ class SandboxTest < ActiveSupport::TestCase
             @receipt = FactoryGirl.create :receipt
         end
 
-        context 'desandbox' do
+        context '#desandbox' do
             should 'return all records' do
                 assert_equal Some.unscope(:joins, :where).all, Some.desandbox
             end
