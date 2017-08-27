@@ -16,6 +16,8 @@ Sandboxy allows you to use virtual data-oriented environments inside a Rails app
     * [Sandboxy methods](#sandboxy-methods)
     * [Switching environments](#switching-environments)
         * [Sandbox & APIs](#sandbox--apis)
+* [Testing](#testing)
+    * [Test Coverage](#test-coverage)
 * [To Do](#to-do)
 * [Contributing](#contributing)
     * [Contributors](#contributors)
@@ -158,6 +160,32 @@ It's flexibility allows Sandboxy to work really well with APIs.
 Typically an API provides two sets of authentication credentials for a consumer - one for live access and one for sandbox/testing.
 
 Whenever you authenticate your API's consumer, just make sure to set the `$sandbox` variable accordingly to the credential the consumer used. From thereon, Sandboxy will make sure that your consumer only reads & updates data from the environment he is in.
+
+---
+
+## Testing
+
+Tests are written with Shoulda on top of `Test::Unit` with Factory Girl being used instead of fixtures. Tests are run using rake.
+
+1. Fork this repository
+2. Clone your forked git locally
+3. Install dependencies
+
+    `$ bundle install`
+
+4. Run tests
+
+    `$ rake test`
+
+### Test Coverage
+
+Test coverage can be calculated using SimpleCov. Make sure you have the [simplecov gem](https://github.com/colszowka/simplecov) installed.
+
+1. Uncomment SimpleCov in the Gemfile
+2. Uncomment the relevant section in `test/test_helper.rb`
+3. Run tests
+
+    `$ rake test`
 
 ---
 
