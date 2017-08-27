@@ -1,2 +1,0 @@
-class Foo < SharedSandbox
-end
