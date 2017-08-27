@@ -6,9 +6,12 @@ module Sandboxy
         end
 
         def call env
+            require 'sandboxy'
+
             previous_sandbox = $sandbox
             $sandbox = Sandboxy.environment == 'sandbox' ? true : false
-            puts 'Sandbox: Moved to ' + Sandboxy.environment + ' environment' if $sandbox != previous_sandbox
+            
+            puts 'Sandbox: Moved to ' + Sandboxy.environment.to_s + ' environment' if $sandbox != previous_sandbox
         end
 
     end

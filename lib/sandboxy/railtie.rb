@@ -11,7 +11,9 @@ module Sandboxy
         end
 
         initializer 'sandboxy.configure_rails_initialization' do |app|
-            puts 'Sandboxy: Using ' + Sandboxy.environment + ' environment'
+            require 'sandboxy'
+            puts 'Sandboxy: Using ' + Sandboxy.environment.to_s + ' environment'
+
             $sandbox = Sandboxy.environment == 'sandbox' ? true : false
             app.middleware.use(Sandboxy::Middleware) unless Sandboxy.retain_environment
         end

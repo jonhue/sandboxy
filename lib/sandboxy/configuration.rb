@@ -2,7 +2,7 @@ module Sandboxy
 
     def self.environment
         config = get_config
-        if config&.key :environment
+        if config&.key(:environment)
             config[:environment]
         else
             'live'
@@ -19,7 +19,7 @@ module Sandboxy
 
     def self.retain_environment
         config = get_config
-        if config&.key :retain_environment
+        if config&.key(:retain_environment)
             config[:retain_environment]
         else
             false
@@ -34,9 +34,11 @@ module Sandboxy
         require 'yaml'
 
         begin
-            YAML.load_file 'config/sandboxy.yml'
+            config = YAML.load_file 'config/sandboxy.yml'
         rescue Exception
         end
+
+        return config if config
     end
 
 end
