@@ -19,6 +19,7 @@ Sandboxy allows you to use virtual data-oriented environments inside a Rails app
 * [To Do](#to-do)
 * [Contributing](#contributing)
     * [Contributors](#contributors)
+    * [Semantic Versioning](#semantic-versioning)
 * [License](#license)
 
 ---
@@ -177,6 +178,10 @@ We hope that you will consider contributing to Sandboxy. Please read this short 
 Give the people some :heart: who are working on this project. See them all at:
 
 https://github.com/slooob/sandboxy/graphs/contributors
+
+### Semantic Versioning
+
+Sandboxy follows Semantic Versioning 2.0 as defined at http://semver.org.
 
 ## License
 

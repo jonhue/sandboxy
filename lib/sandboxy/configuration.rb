@@ -36,7 +36,6 @@ module Sandboxy
         begin
             YAML.load_file 'config/sandboxy.yml'
         rescue Exception
-            warn 'Sandboxy: Please run `rails g sandboxy` to add configuration'
         end
     end
 
