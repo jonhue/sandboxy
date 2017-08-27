@@ -43,7 +43,7 @@ module Sandboxy
             end
 
             def live?
-                !self.sandbox.present?
+                !self.sandboxed?
             end
 
         end

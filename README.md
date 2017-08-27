@@ -2,7 +2,7 @@
 
 <img src="https://travis-ci.org/slooob/sandboxy.svg?branch=master" /> [![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy)
 
-Sandboxy allows you to use virtual data-oriented environments inside a Rails application with ActiveRecord while being able to switch in between at runtime.
+Sandboxy allows you to use virtual data-oriented environments inside a Rails application with ActiveRecord while being able to switch in between at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.
 
 ---
 
@@ -11,7 +11,9 @@ Sandboxy allows you to use virtual data-oriented environments inside a Rails app
 * [Installation](#installation)
 * [Usage](#usage)
     * [Setup](#setup)
+    * [Configuration](#configuration)
     * [Sandboxed methods](#sandboxed-methods)
+    * [Sandboxy methods](#sandboxy-methods)
     * [Switching environments](#switching-environments)
         * [Sandbox & APIs](#sandbox--apis)
 * [To Do](#to-do)
@@ -47,7 +49,11 @@ Now run the generator:
 
     $ rails g sandboxy
 
-You can specify that your application should use the sandbox by default by passing `--default true`. Learn more about switching environments [here](#switching-environments).
+You can specify your applications default environment by passing `--default live` or `--default sandbox`. Learn more about switching environments [here](#switching-environments).
+
+To set that your app should retain it's environment at runtime on new requests pass `--retain_environment true`.
+
+You can always update your [configuration](#configuration) later.
 
 To wrap things up, migrate the changes into your database:
 
@@ -55,7 +61,7 @@ To wrap things up, migrate the changes into your database:
 
 **Note:** Use `rake db:migrate` instead if you run Rails < 5.
 
-This will create an initializer as well as a migration file and the `Sandbox` model.
+This will create a configuration file under `config/sandboxy.yml` as well as a migration file and the `Sandbox` model.
 
 ## Usage
 
@@ -79,6 +85,12 @@ end
 class Foo < Sandboxy
 end
 ```
+
+### Configuration
+
+In `config/sandboxy.yml` you define your app's default environment. This can be either set to `live` or `sandbox`. It defaults to `live`.
+
+Now this default gets refreshed before every new request. To retain any environment you [switched in at runtime](#switching-environments), you need to set `retain_environment` to `true`. Defaults to `false`.
 
 ### Sandboxed methods
 
@@ -116,11 +128,27 @@ foo.make_sandboxed
 foo.sandboxed? # => true
 ```
 
+### Sandboxy methods
+
+To access your default environment setting:
+
+```ruby
+Sandboxy.environment # => 'live' / 'sandbox'
+Sandboxy.sandbox? # => true / false
+Sandboxy.live? # => true / false
+```
+
+**Note:** `Sandboxy.environment` does *NOT* return the apps current environment. For that use the [`$sandbox` variable](#switching-environments) instead.
+
+You can also access whether your app retains your environment throughout request:
+
+```ruby
+Sandboxy.retain_environment # => true / false
+```
+
 ### Switching environments
 
-In `config/initializers/sandboxy.rb` you define your app's default environment by setting the `$sandbox` variable.
-
-You can override that variable anywhere in your application. That makes Sandboxy super flexible.
+At runtime you can always switch environments by using the `$sandbox` variable anywhere in your application. Set it to `true` to enable the `sandbox` environment. Set it to `false` to enable the `live` environment. That makes Sandboxy super flexible.
 
 #### Sandbox & APIs
 
