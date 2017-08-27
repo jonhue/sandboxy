@@ -23,7 +23,6 @@ Gem::Specification.new do |gem|
 
     gem.add_development_dependency 'sqlite3', '~> 1.3'
     gem.add_development_dependency 'shoulda', '~> 3.5'
-    gem.add_development_dependency 'shoulda_create', '~> 0.0'
     gem.add_development_dependency 'factory_girl', '~> 4.8'
     gem.add_development_dependency 'rails', '>= 4.0'
     gem.add_development_dependency 'tzinfo-data', '~> 1.2017'
