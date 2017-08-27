@@ -2,7 +2,7 @@
 
 <img src="https://travis-ci.org/slooob/sandboxy.svg?branch=master" /> [![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy)
 
-Sandboxy allows you to use virtual data-oriented environments inside a Rails application with ActiveRecord while being able to switch in between at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.
+Sandboxy allows you to use virtual data-oriented environments inside a Rails application while being able to switch in between at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.
 
 ---
 
@@ -67,7 +67,7 @@ This will create a configuration file under `config/sandboxy.yml` as well as a m
 
 ### Setup
 
-Add Sandboxy to the models where you want to separate live & sandbox reocrds:
+Add Sandboxy to the models where you want to separate live & sandbox records:
 
 ```ruby
 class Foo < ApplicationRecord
@@ -78,11 +78,11 @@ end
 In most use cases you would want to add sandboxy to a lot of ActiveRecord models if not all. To simplify that you could create a new class and let all your models inherit from it:
 
 ```ruby
-class Sandboxy < ApplicationRecord
+class SharedSandbox < ApplicationRecord
     sandboxy
 end
 
-class Foo < Sandboxy
+class Foo < SharedSandbox
 end
 ```
 
