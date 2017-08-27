@@ -17,5 +17,4 @@ require File.dirname(__FILE__) + '/../lib/generators/templates/model.rb'
 
 require 'shoulda'
 require 'factory_girl'
-ActiveSupport::TestCase.extend ShouldaCreate
 FactoryGirl.find_definitions
