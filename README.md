@@ -61,7 +61,7 @@ This will create an initializer as well as a migration file and the `Sandbox` mo
 
 ### Setup
 
-Add Sandboxy to the models where you want to separate live & sandbox reocrds:
+Add Sandboxy to the models where you want to separate live & sandbox records:
 
 ```ruby
 class Foo < ApplicationRecord
