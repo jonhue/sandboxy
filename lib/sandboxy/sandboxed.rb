@@ -13,15 +13,15 @@ module Sandboxy
 
                 scope :live_scoped, -> { left_outer_joins(:sandbox).where(sandbox: { id: nil }) }
                 scope :sandboxed_scoped, -> { left_outer_joins(:sandbox).where.not(sandbox: { id: nil }) }
-                default_scope where(
+                default_scope {
                     case $sandbox
-                    when true then { sandboxed_scoped }
-                    when false then { live_scoped }
+                    when true then sandboxed_scoped
+                    when false then live_scoped
                     end
-                )
-                scope :live, -> { unscope.live_scoped }
-                scope :sandboxed, -> { unscope.sandboxed_scoped }
-                scope :desandbox, -> { unscope.all }
+                }
+                scope :live, -> { unscope(:joins, :where).live_scoped }
+                scope :sandboxed, -> { unscope(:joins, :where).sandboxed_scoped }
+                scope :desandbox, -> { unscope(:joins, :where).all }
 
                 # before_save :make_sandboxed # -> should be handled automatically through default_scope
             end
@@ -35,7 +35,7 @@ module Sandboxy
             end
 
             def make_live
-                self.sandbox.destroy
+                self.sandbox.destroy if self.sandbox.present?
             end
 
             def sandboxed?

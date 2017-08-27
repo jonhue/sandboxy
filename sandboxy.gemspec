@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
     gem.version               = Sandboxy::VERSION
     gem.platform              = Gem::Platform::RUBY
     gem.summary               = 'Virtual data-oriented environments for Rails'
-    gem.description           = 'Sandboxy allows you to use two virtual data-oriented environments inside a Rails application while being able to switch in between at runtime.'
+    gem.description           = 'Sandboxy allows you to use two virtual data-oriented environments inside a Rails application with ActiveRecord while being able to switch in between at runtime.'
     gem.authors               = 'Slooob'
     gem.email                 = 'developer@slooob.com'
     gem.homepage              = 'https://developer.slooob.com/open-source'
@@ -19,5 +19,12 @@ Gem::Specification.new do |gem|
 
     gem.required_ruby_version = '>= 2.0'
 
-    gem.add_dependency 'rails', '>= 4.0'
+    gem.add_dependency 'activerecord', '>= 4.0'
+
+    gem.add_development_dependency 'sqlite3', '~> 1.3'
+    gem.add_development_dependency 'shoulda_create', '~> 0.0'
+    gem.add_development_dependency 'shoulda', '~> 3.5'
+    gem.add_development_dependency 'factory_girl', '~> 4.8'
+    gem.add_development_dependency 'rails', '>= 4.0'
+    gem.add_development_dependency 'tzinfo-data', '~> 1.2017'
 end

@@ -1,6 +1,16 @@
-require File.join 'bundler', 'gem_tasks'
-require File.join 'rspec', 'core', 'rake_task'
+require 'bundler'
+Bundler::GemHelper.install_tasks
 
-RSpec::Core::RakeTask.new :spec
+require 'rake'
+require 'rake/testtask'
+require 'rdoc/task'
 
-task default: :spec
+desc 'Default: run unit tests.'
+task default: :test
+
+desc 'Test sandboxy gem.'
+Rake::TestTask.new(:test) do |t|
+    t.libs << 'lib'
+    t.pattern = 'test/**/*_test.rb'
+    t.verbose = true
+end

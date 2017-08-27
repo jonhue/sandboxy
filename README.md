@@ -2,7 +2,7 @@
 
 <img src="https://travis-ci.org/slooob/sandboxy.svg?branch=master" /> [![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy)
 
-Sandboxy allows you to use two virtual data-oriented environments inside a Rails application while being able to switch in between at runtime.
+Sandboxy allows you to use two virtual data-oriented environments inside a Rails application with ActiveRecord while being able to switch in between at runtime.
 
 ---
 
@@ -134,7 +134,7 @@ Whenever you authenticate your API's consumer, just make sure to set the `$sandb
 
 ## To Do
 
-* Add tests
+* Leave your suggestions [here](https://github.com/slooob/sandboxy/issues/new)
 
 ---
 

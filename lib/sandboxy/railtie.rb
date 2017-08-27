@@ -1,4 +1,5 @@
 require 'rails'
+require 'sandboxy/sandboxed'
 
 
 module Sandboxy
