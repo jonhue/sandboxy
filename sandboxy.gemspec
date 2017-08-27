@@ -6,7 +6,7 @@ Gem::Specification.new do |gem|
     gem.version               = Sandboxy::VERSION
     gem.platform              = Gem::Platform::RUBY
     gem.summary               = 'Virtual data-oriented environments for Rails'
-    gem.description           = 'Sandboxy allows you to use virtual data-oriented environments inside a Rails application with ActiveRecord while being able to switch in between at runtime.'
+    gem.description           = 'Sandboxy allows you to use virtual data-oriented environments inside a Rails application while being able to switch in between at runtime.'
     gem.authors               = 'Slooob'
     gem.email                 = 'developer@slooob.com'
     gem.homepage              = 'https://developer.slooob.com/open-source'
