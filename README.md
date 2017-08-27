@@ -72,11 +72,11 @@ end
 In most use cases you would want to add sandboxy to a lot of ActiveRecord models if not all. To simplify that you could create a new class and let all your models inherit from it:
 
 ```ruby
-class Sandboxy < ApplicationRecord
+class SharedSandbox < ApplicationRecord
     sandboxy
 end
 
-class Foo < Sandboxy
+class Foo < SharedSandbox
 end
 ```
 
