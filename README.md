@@ -143,7 +143,7 @@ Sandboxy.live? # => true / false
 
 **Note:** `Sandboxy.environment` does *NOT* return the apps current environment. For that use the [`$sandbox` variable](#switching-environments) instead.
 
-You can also access whether your app retains your environment throughout request:
+You can also access whether your app retains your environment throughout requests:
 
 ```ruby
 Sandboxy.retain_environment # => true / false
