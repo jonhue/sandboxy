@@ -1,6 +1,5 @@
 require 'sandboxy/version'
 
-
 module Sandboxy
 
     autoload :Configuration, 'sandboxy/configuration'
@@ -17,6 +16,6 @@ module Sandboxy
     autoload :Sandboxed, 'sandboxy/sandboxed'
 
     require 'sandboxy/middleware'
-    require 'sandboxy/railtie' # if defined?(Rails)
+    require 'sandboxy/railtie'
 
 end

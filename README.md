@@ -11,17 +11,17 @@ Sandboxy allows you to use virtual data-oriented environments inside a Rails app
 * [Installation](#installation)
 * [Usage](#usage)
     * [Setup](#setup)
-    * [Configuration](#configuration)
-    * [Sandboxed methods](#sandboxed-methods)
-    * [Sandboxy methods](#sandboxy-methods)
+    * [`sandboxy` methods](#sandboxy-methods)
+    * [Sandboxy class methods](#sandboxy-class-methods)
     * [Switching environments](#switching-environments)
         * [Sandbox & APIs](#sandbox--apis)
+* [Configuration](#configuration)
 * [Testing](#testing)
     * [Test Coverage](#test-coverage)
 * [To Do](#to-do)
 * [Contributing](#contributing)
     * [Contributors](#contributors)
-    * [Semantic Versioning](#semantic-versioning)
+    * [Semantic versioning](#semantic-versioning)
 * [License](#license)
 
 ---
@@ -52,19 +52,9 @@ Now run the generator:
 
     $ rails g sandboxy
 
-You can specify your applications default environment by passing `--default live` or `--default sandbox`. Learn more about switching environments [here](#switching-environments).
-
-To set that your app should retain it's environment at runtime on new requests pass `--retain_environment true`.
-
-You can always update your [configuration](#configuration) later.
-
 To wrap things up, migrate the changes into your database:
 
     $ rails db:migrate
-
-**Note:** Use `rake db:migrate` instead if you run Rails < 5.
-
-This will create a configuration file under `config/sandboxy.yml` as well as a migration file and the `Sandbox` model.
 
 ## Usage
 
@@ -78,7 +68,7 @@ class Foo < ApplicationRecord
 end
 ```
 
-In most use cases you would want to add sandboxy to a lot of ActiveRecord models if not all. To simplify that you could create a new class and let all your models inherit from it:
+In most use cases you would want to add `sandboxy` to a lot of ActiveRecord models if not all. To simplify that you could create a new class and let all your models inherit from it:
 
 ```ruby
 class SharedSandbox < ApplicationRecord
@@ -89,13 +79,7 @@ class Foo < SharedSandbox
 end
 ```
 
-### Configuration
-
-In `config/sandboxy.yml` you define your app's default environment. This can be either set to `live` or `sandbox`. It defaults to `live`.
-
-Now this default gets refreshed before every new request. To retain any environment you [switched in at runtime](#switching-environments), you need to set `retain_environment` to `true`. Defaults to `false`.
-
-### Sandboxed methods
+### `sandboxy` methods
 
 By default you can only access records belonging to the current environment (`live` or `sandbox`):
 
@@ -131,22 +115,22 @@ foo.make_sandboxed
 foo.sandboxed? # => true
 ```
 
-### Sandboxy methods
+### `Sandboxy` class methods
 
 To access your default environment setting:
 
 ```ruby
-Sandboxy.environment # => 'live' / 'sandbox'
-Sandboxy.sandbox? # => true / false
-Sandboxy.live? # => true / false
+Sandboxy.configuration.environment # => 'live' / 'sandbox'
+Sandboxy.configuration.sandbox? # => true / false
+Sandboxy.configuration.live? # => true / false
 ```
 
-**Note:** `Sandboxy.environment` does *NOT* return the apps current environment. For that use the [`$sandbox` variable](#switching-environments) instead.
+**Note:** `Sandboxy.configuration.environment` does *NOT* return the apps current environment. For that use the [`$sandbox` variable](#switching-environments) instead.
 
 You can also access whether your app retains your environment throughout requests:
 
 ```ruby
-Sandboxy.retain_environment # => true / false
+Sandboxy.configuration.retain_environment # => true / false
 ```
 
 ### Switching environments
@@ -160,6 +144,22 @@ It's flexibility allows Sandboxy to work really well with APIs.
 Typically an API provides two sets of authentication credentials for a consumer - one for live access and one for sandbox/testing.
 
 Whenever you authenticate your API's consumer, just make sure to set the `$sandbox` variable accordingly to the credential the consumer used. From thereon, Sandboxy will make sure that your consumer only reads & updates data from the environment he is in.
+
+---
+
+## Configuration
+
+You can configure Sandboxy by passing a block to `configure`. This can be done in `config/initializers/sandboxy.rb`:
+
+```ruby
+Sandboxy.configure do |config|
+    config.environment = 'sandbox'
+end
+```
+
+**`environment`** Set your environment default: Must be either `live` or `sandbox`. This is the environment that your app boots with. By default it gets refreshed with every new request to your server. Defaults to `'live'`.
+
+**`retain_environment`** Specify whether to retain your current app environment on new requests. If set to `true`, your app will only load your environment default when starting. Every additional switch of your environment at runtime will then not be automatically resolved to your environment default on a new request. Takes a boolean. Defaults to `false`.
 
 ---
 
@@ -191,7 +191,9 @@ Test coverage can be calculated using SimpleCov. Make sure you have the [simplec
 
 ## To Do
 
-* Leave your suggestions [here](https://github.com/slooob/sandboxy/issues/new)
+[Here](https://github.com/jonhue/sandboxy/projects/1) is the full list of current projects.
+
+To propose your ideas, initiate the discussion by adding a [new issue](https://github.com/jonhue/sandboxy/issues/new).
 
 ---
 
@@ -199,13 +201,13 @@ Test coverage can be calculated using SimpleCov. Make sure you have the [simplec
 
 We hope that you will consider contributing to Sandboxy. Please read this short overview for some information about how to get started:
 
-[Learn more about contributing to this repository](https://github.com/slooob/sandboxy/blob/master/CONTRIBUTING.md), [Code of Conduct](https://github.com/slooob/sandboxy/blob/master/CODE_OF_CONDUCT.md)
+[Learn more about contributing to this repository](https://github.com/jonhue/sandboxy/blob/master/CONTRIBUTING.md), [Code of Conduct](https://github.com/jonhue/sandboxy/blob/master/CODE_OF_CONDUCT.md)
 
 ### Contributors
 
 Give the people some :heart: who are working on this project. See them all at:
 
-https://github.com/slooob/sandboxy/graphs/contributors
+https://github.com/jonhue/sandboxy/graphs/contributors
 
 ### Semantic Versioning
 
@@ -215,7 +217,7 @@ Sandboxy follows Semantic Versioning 2.0 as defined at http://semver.org.
 
 MIT License
 
-Copyright (c) 2017 Slooob
+Copyright (c) 2017 Jonas Hübotter
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
