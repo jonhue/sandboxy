@@ -7,8 +7,6 @@ class SandboxyGenerator < Rails::Generators::Base
 
     source_root File.join File.dirname(__FILE__), 'templates'
     desc 'Install sandboxy'
-    class_option :default, desc: 'Set to default environment. Accepts either `live` or `sandbox`.', type: :boolean, default: false, aliases: '-d'
-    class_option :retain_environment, desc: "Whether your app should retain it's environment at runtime on new requests.", type: :boolean, default: false, aliases: '-re'
 
     def self.next_migration_number dirname
         if ActiveRecord::Base.timestamped_migrations
@@ -18,12 +16,12 @@ class SandboxyGenerator < Rails::Generators::Base
         end
     end
 
-    def create_migration_file
-        migration_template 'migration.rb.erb', 'db/migrate/sandboxy_migration.rb', migration_version: migration_version
+    def create_initializer
+        template 'initializer.rb', 'config/initializers/sandboxy.rb'
     end
 
-    def create_configuration
-        template 'configuration.yml.erb', 'config/sandboxy.yml'
+    def create_migration_file
+        migration_template 'migration.rb.erb', 'db/migrate/sandboxy_migration.rb', migration_version: migration_version
     end
 
     def create_model

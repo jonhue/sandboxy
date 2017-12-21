@@ -1,8 +1,8 @@
-# Sandboxy - virtual data-oriented environments for Rails
+# Sandboxy
 
-<img src="https://travis-ci.org/slooob/sandboxy.svg?branch=master" /> [![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy)
+[![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy) <img src="https://travis-ci.org/jonhue/sandboxy.svg?branch=master" />
 
-Sandboxy allows you to use virtual data-oriented environments inside a Rails application while being able to switch in between at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.
+Sandboxy allows you to use virtual data-oriented environments inside a Rails application while being able to switch between them at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.
 
 ---
 
@@ -28,7 +28,7 @@ Sandboxy allows you to use virtual data-oriented environments inside a Rails app
 
 ## Installation
 
-Sandboxy works with Rails 4.0 onwards. You can add it to your `Gemfile` with:
+Sandboxy works with Rails 5.0 onwards. You can add it to your `Gemfile` with:
 
 ```ruby
 gem 'sandboxy'
@@ -45,7 +45,7 @@ Or install it yourself as:
 If you always want to be up to date fetch the latest from GitHub in your `Gemfile`:
 
 ```ruby
-gem 'sandboxy', github: 'slooob/sandboxy'
+gem 'sandboxy', github: 'jonhue/sandboxy'
 ```
 
 Now run the generator:
