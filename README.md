@@ -12,7 +12,6 @@ Sandboxy allows you to use virtual data-oriented environments inside a Rails app
 * [Usage](#usage)
     * [Setup](#setup)
     * [`sandboxy` methods](#sandboxy-methods)
-    * [`Sandboxy` class methods](#sandboxy-class-methods)
     * [Switching environments](#switching-environments)
         * [Sandbox & APIs](#sandbox--apis)
 * [Configuration](#configuration)
@@ -28,7 +27,7 @@ Sandboxy allows you to use virtual data-oriented environments inside a Rails app
 
 ## Installation
 
-Sandboxy works with Rails 5.0 onwards. You can add it to your `Gemfile` with:
+Sandboxy works with Rails 5 onwards. You can add it to your `Gemfile` with:
 
 ```ruby
 gem 'sandboxy'
@@ -85,6 +84,8 @@ end
 By default you can only access records belonging to the current environment (defined by `Sandboxy.environment`):
 
 ```ruby
+Sandboxy.environment = 'test'
+Foo.all # => returns all test foo's
 Sandboxy.environment = 'sandbox'
 Foo.all # => returns all sandbox foo's
 ```
@@ -93,7 +94,7 @@ Now to access the records belonging to a certain environment regardless of your 
 
 ```ruby
 Foo.live_environment # => returns all live foo's
-Foo.sandboxed_environment # => returns all sandbox foo's
+Foo.sandbox_environment # => returns all sandbox foo's
 Foo.desandbox # => returns all foo's
 ```
 
@@ -116,26 +117,6 @@ foo.move_environment_sandbox
 foo.sandbox_environment? # => true
 ```
 
-### `Sandboxy` class methods
-
-To access your default environment setting:
-
-```ruby
-Sandboxy.configuration.environment # => 'live' / 'sandbox'
-Sandboxy.configuration.sandbox_environment? # => true / false
-Sandboxy.configuration.live_environment? # => true / false
-```
-
-**Note:** `Sandboxy.configuration.environment` does *NOT* return the apps current environment. For that use [`Sandboxy.environment` variable](#switching-environments) instead.
-
-You can also access whether your app retains your environment throughout requests:
-
-```ruby
-Sandboxy.configuration.retain_environment # => true / false
-```
-
-If `retain_environment` is set to `false` your app will return to your default environment on every new request.
-
 ### Switching environments
 
 At runtime you can always switch environments anywhere in your application by setting `Sandboxy.environment`. You can set it to any string you like. That makes Sandboxy super flexible.
@@ -143,7 +124,7 @@ At runtime you can always switch environments anywhere in your application by se
 ```ruby
 Sandboxy.environment = 'live'
 Sandboxy.live_environment? # => true
-Sandboxy.sandboxy_environment? # => true
+Sandboxy.sandbox_environment? # => true
 ```
 
 #### Sandbox & APIs
@@ -162,13 +143,13 @@ You can configure Sandboxy by passing a block to `configure`. This can be done i
 
 ```ruby
 Sandboxy.configure do |config|
-    config.environment = 'sandbox'
+    config.default = 'sandbox'
 end
 ```
 
-**`environment`** Set your environment default. This is the environment that your app boots with. By default it gets refreshed with every new request to your server. Defaults to `'live'`.
+**`default`** Set your environment default. This is the environment that your app boots with. By default it gets refreshed with every new request to your server. Takes a string. Defaults to `'live'`.
 
-**`retain_environment`** Specify whether to retain your current app environment on new requests. If set to `true`, your app will only load your environment default when starting. Every additional switch of your environment at runtime will then not be automatically resolved to your environment default on a new request. Takes a boolean. Defaults to `false`.
+**`retain`** Retain your current app environment on new requests. If set to `false`, your app will return to your default environment on every new request. Takes a boolean. Defaults to `false`.
 
 ---
 
@@ -190,7 +171,7 @@ Tests are written with Shoulda on top of `Test::Unit` with Factory Girl being us
 
 Test coverage can be calculated using SimpleCov. Make sure you have the [simplecov gem](https://github.com/colszowka/simplecov) installed.
 
-1. Uncomment SimpleCov in the Gemfile
+1. Add SimpleCov to the Gemfile
 2. Uncomment the relevant section in `test/test_helper.rb`
 3. Run tests
 
