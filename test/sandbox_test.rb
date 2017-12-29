@@ -4,10 +4,10 @@ class SandboxTest < ActiveSupport::TestCase
 
     context 'scopes' do
         should 'be defined' do
-            assert Some.respond_to? :live_scoped
-            assert Some.respond_to? :sandboxed_scoped
-            assert Some.respond_to? :live
-            assert Some.respond_to? :sandboxed
+            assert Some.respond_to? :live_environment_scoped
+            assert Some.respond_to? :sandbox_environment_scoped
+            assert Some.respond_to? :live_environment
+            assert Some.respond_to? :sandbox_environment
             assert Some.respond_to? :desandbox
         end
     end
@@ -16,7 +16,7 @@ class SandboxTest < ActiveSupport::TestCase
         setup do
             @post = FactoryGirl.create :post
             @purchase = FactoryGirl.create :purchase
-            $sandbox = true
+            Sandboxy.environment = 'sandbox'
             @book = FactoryGirl.create :book
             @receipt = FactoryGirl.create :receipt
         end
@@ -27,23 +27,23 @@ class SandboxTest < ActiveSupport::TestCase
             end
         end
 
-        context '#live' do
+        context '#live_environment' do
             setup do
-                $sandbox = false
+                Sandboxy.environment = 'live'
             end
 
             should 'return all live records' do
-                assert_equal Some.all, Some.live
+                assert_equal Some.all, Some.live_environment
             end
         end
 
-        context '#sandboxed' do
+        context '#sandbox_environment' do
             setup do
-                $sandbox = true
+                Sandboxy.environment = 'sandbox'
             end
 
             should 'return all sandboxed records' do
-                assert_equal Some.all, Some.sandboxed
+                assert_equal Some.all, Some.sandbox_environment
             end
         end
     end

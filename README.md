@@ -60,7 +60,7 @@ To wrap things up, migrate the changes into your database:
 
 ### Setup
 
-Add Sandboxy to the models where you want to separate live & sandbox records:
+Add Sandboxy to the models where you want to separate records depending on their environments:
 
 ```ruby
 class Foo < ApplicationRecord
@@ -81,18 +81,18 @@ end
 
 ### `sandboxy` methods
 
-By default you can only access records belonging to the current environment (`live` or `sandbox`):
+By default you can only access records belonging to the current environment (defined by `Sandboxy.environment`):
 
 ```ruby
-$sandbox = true
+Sandboxy.environment = 'sandbox'
 Foo.all # => returns all sandbox foo's
 ```
 
-Now to access the records belonging to a certain group regardless of your current environment, you can use:
+Now to access the records belonging to a certain environment regardless of your current environment, you can use:
 
 ```ruby
-Foo.live # => returns all live foo's
-Foo.sandboxed # => returns all sandbox foo's
+Foo.live_environment # => returns all live foo's
+Foo.sandboxed_environment # => returns all sandbox foo's
 Foo.desandbox # => returns all foo's
 ```
 
@@ -100,8 +100,8 @@ Let's check to which environment this `Foo` belongs:
 
 ```ruby
 foo = Foo.create!
-foo.live? # => false
-foo.sandboxed? # => true
+foo.live_environment? # => false
+foo.sandbox_environment? # => true
 ```
 
 You should keep in mind that when you create a new record, it will automatically belong to your app's current environment.
@@ -109,10 +109,10 @@ You should keep in mind that when you create a new record, it will automatically
 Don't worry, you can move records between environments:
 
 ```ruby
-foo.make_live
-foo.live? # => true
-foo.make_sandboxed
-foo.sandboxed? # => true
+foo.move_environment_live
+foo.live_environment? # => true
+foo.move_environment_sandbox
+foo.sandbox_environment? # => true
 ```
 
 ### `Sandboxy` class methods
@@ -121,11 +121,11 @@ To access your default environment setting:
 
 ```ruby
 Sandboxy.configuration.environment # => 'live' / 'sandbox'
-Sandboxy.configuration.sandbox? # => true / false
-Sandboxy.configuration.live? # => true / false
+Sandboxy.configuration.sandbox_environment? # => true / false
+Sandboxy.configuration.live_environment? # => true / false
 ```
 
-**Note:** `Sandboxy.configuration.environment` does *NOT* return the apps current environment. For that use the [`$sandbox` variable](#switching-environments) instead.
+**Note:** `Sandboxy.configuration.environment` does *NOT* return the apps current environment. For that use [`Sandboxy.environment` variable](#switching-environments) instead.
 
 You can also access whether your app retains your environment throughout requests:
 
@@ -133,9 +133,17 @@ You can also access whether your app retains your environment throughout request
 Sandboxy.configuration.retain_environment # => true / false
 ```
 
+If `retain_environment` is set to `false` your app will return to your default environment on every new request.
+
 ### Switching environments
 
-At runtime you can always switch environments by using the `$sandbox` variable anywhere in your application. Set it to `true` to enable the `sandbox` environment. Set it to `false` to enable the `live` environment. That makes Sandboxy super flexible.
+At runtime you can always switch environments anywhere in your application by setting `Sandboxy.environment`. You can set it to any string you like. That makes Sandboxy super flexible.
+
+```ruby
+Sandboxy.environment = 'live'
+Sandboxy.live_environment? # => true
+Sandboxy.sandboxy_environment? # => true
+```
 
 #### Sandbox & APIs
 
@@ -143,7 +151,7 @@ It's flexibility allows Sandboxy to work really well with APIs.
 
 Typically an API provides two sets of authentication credentials for a consumer - one for live access and one for sandbox/testing.
 
-Whenever you authenticate your API's consumer, just make sure to set the `$sandbox` variable accordingly to the credential the consumer used. From thereon, Sandboxy will make sure that your consumer only reads & updates data from the environment he is in.
+Whenever you authenticate your API's consumer, just make sure to set `Sandboxy.environment` accordingly to the credential the consumer used. From thereon, Sandboxy will make sure that your consumer only reads & updates data from the environment he is in.
 
 ---
 
@@ -157,7 +165,7 @@ Sandboxy.configure do |config|
 end
 ```
 
-**`environment`** Set your environment default: Must be either `live` or `sandbox`. This is the environment that your app boots with. By default it gets refreshed with every new request to your server. Defaults to `'live'`.
+**`environment`** Set your environment default. This is the environment that your app boots with. By default it gets refreshed with every new request to your server. Defaults to `'live'`.
 
 **`retain_environment`** Specify whether to retain your current app environment on new requests. If set to `true`, your app will only load your environment default when starting. Every additional switch of your environment at runtime will then not be automatically resolved to your environment default on a new request. Takes a boolean. Defaults to `false`.
 

@@ -8,10 +8,10 @@ class SandboxedTest < ActiveSupport::TestCase
         end
 
         should 'be defined' do
-            assert @post.respond_to? :make_sandboxed
-            assert @post.respond_to? :make_live
-            assert @post.respond_to? :sandboxed?
-            assert @post.respond_to? :live?
+            assert @post.respond_to? :move_environment_sandbox
+            assert @post.respond_to? :move_environment_live
+            assert @post.respond_to? :sandbox_environment?
+            assert @post.respond_to? :live_environment?
         end
     end
 
@@ -19,38 +19,38 @@ class SandboxedTest < ActiveSupport::TestCase
         setup do
             @post = FactoryGirl.create :post
             @purchase = FactoryGirl.create :purchase
-            $sandbox = true
+            Sandboxy.environment = 'sandbox'
             @book = FactoryGirl.create :book
             @receipt = FactoryGirl.create :receipt
         end
 
-        context '#sandboxed?' do
+        context '#sandbox_environment?' do
             should 'be true for @book & @receipt' do
-                @book.make_sandboxed ##### SHOULD NOT BE NECESSARY #####
-                @receipt.make_sandboxed ##### SHOULD NOT BE NECESSARY #####
-                assert_equal true, @book.sandboxed?
-                assert_equal true, @receipt.sandboxed?
+                # @book.move_environment_sandbox ##### SHOULD NOT BE NECESSARY #####
+                # @receipt.move_environment_live ##### SHOULD NOT BE NECESSARY #####
+                assert_equal true, @book.sandbox_environment?
+                assert_equal true, @receipt.sandbox_environment?
             end
         end
 
-        context '#live?' do
+        context '#live_environment?' do
             should 'be true for @post & @purchase' do
-                assert_equal true, @post.live?
-                assert_equal true, @purchase.live?
+                assert_equal true, @post.live_environment?
+                assert_equal true, @purchase.live_environment?
             end
         end
 
-        context '#make_sandboxed' do
+        context '#move_environment_sandbox' do
             should 'move record to sandboxed environment' do
-                @purchase.make_sandboxed
-                assert_equal true, @purchase.sandboxed?
+                @purchase.move_environment_sandbox
+                assert_equal true, @purchase.sandbox_environment?
             end
         end
 
-        context '#make_live' do
+        context '#move_environment_live' do
             should 'move record to live environment' do
-                @receipt.make_live
-                assert_equal true, @receipt.live?
+                @receipt.move_environment_live
+                assert_equal true, @receipt.live_environment?
             end
         end
     end

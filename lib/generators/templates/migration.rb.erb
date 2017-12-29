@@ -2,6 +2,7 @@ class SandboxyMigration < ActiveRecord::Migration<%= migration_version %>
     def change
         create_table :sandboxy do |t|
             t.references :sandboxed, polymorphic: true, index: true
+            t.string :environment, index: true
             t.timestamps
         end
     end

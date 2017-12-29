@@ -12,12 +12,12 @@ module Sandboxy
         end
 
         initializer 'sandboxy.middleware' do |app|
-            app.middleware.use(Sandboxy::Middleware) unless Sandboxy.configuration&.retain_environment
+            app.middleware.use(Sandboxy::Middleware) unless Sandboxy.configuration&.retain
         end
 
         config.after_initialize do
-            puts "Sandboxy: Using #{Sandboxy.configuration.environment} environment"
-            $sandbox = Sandboxy.configuration.environment == 'sandbox'
+            puts "Sandboxy: Using #{Sandboxy.configuration.default} environment"
+            Sandboxy.environment = Sandboxy.configuration.default
         end
 
     end

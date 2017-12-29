@@ -9,41 +9,84 @@ module Sandboxy
 
             def sandboxy
                 has_one :sandbox, as: :sandboxed, dependent: :destroy
+                before_create :set_environment
                 include Sandboxy::Sandboxed::InstanceMethods
 
-                scope :live_scoped, -> { left_outer_joins(:sandbox).where(sandbox: { id: nil }) }
-                scope :sandboxed_scoped, -> { left_outer_joins(:sandbox).where.not(sandbox: { id: nil }) }
-                default_scope {
-                    case $sandbox
-                    when true then sandboxed_scoped
-                    when false then live_scoped
-                    end
-                }
-                scope :live, -> { unscope(:joins, :where).live_scoped }
-                scope :sandboxed, -> { unscope(:joins, :where).sandboxed_scoped }
+                default_scope { self.environment_scoped(Sandboxy.environment) }
                 scope :desandbox, -> { unscope(:joins, :where).all }
 
-                # before_save :make_sandboxed # -> should be handled automatically through default_scope
+                def method_missing m, *args
+                    if m.to_s[/(.+)_environment/]
+                        self.environment $1.singularize.classify
+                    elsif m.to_s[/(.+)_environment_scoped/]
+                        self.environment_scoped $1.singularize.classify
+                    else
+                        super
+                    end
+                end
+
+                def respond_to? m, include_private = false
+                    super || m.to_s[/(.+)_environment/] || m.to_s[/(.+)_environment_scoped/]
+                end
+
+                def environment value
+                    unscope(:joins, :where).environment_scoped value
+                end
+
+                def environment_scoped value
+                    case value
+                    when Sandboxy.configuration.default
+                        left_outer_joins(:sandbox).where sandboxy: { environment: nil }
+                    else
+                        left_outer_joins(:sandbox).where sandboxy: { environment: value }
+                    end
+                end
             end
 
         end
 
         module InstanceMethods
 
-            def make_sandboxed
-                self.build_sandbox unless self.sandbox.present?
+            def method_missing m, *args
+                if m.to_s[/move_environment_(.+)/]
+                    self.move_environment $1.singularize.classify
+                elsif m.to_s[/(.+)_environment?/]
+                    self.environment? $1.singularize.classify
+                else
+                    super
+                end
             end
 
-            def make_live
-                self.sandbox.destroy if self.sandbox.present?
+            def respond_to? m, include_private = false
+                super || m.to_s[/move_environment_(.+)/] || m.to_s[/(.+)_environment?/]
             end
 
-            def sandboxed?
-                self.sandbox.present?
+            def move_environment value
+                case value
+                when Sandboxy.configuration.default
+                    self.sandbox.destroy if self.sandbox.present?
+                else
+                    if self.sandbox.present?
+                        self.sandbox.update_attributes environment: value
+                    else
+                        self.sandbox.create! environment: value
+                    end
+                end
             end
 
-            def live?
-                !self.sandboxed?
+            def environment? value
+                self.environment == value
+            end
+
+            def environment
+                Sandboxy.configuration.default unless self.sandbox.present?
+                self.sandbox.environment
+            end
+
+            private
+
+            def set_environment
+                self.build_sandbox environment: Sandboxy.environment if Sandboxy.environment != Sandboxy.configuration.default
             end
 
         end

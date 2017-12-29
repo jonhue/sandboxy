@@ -8,10 +8,10 @@ module Sandboxy
         def call env
             require 'sandboxy'
 
-            previous_sandbox = $sandbox
-            $sandbox = Sandboxy.configuration.environment == 'sandbox'
+            previous_environment = Sandboxy.environment
+            Sandboxy.environment = Sandboxy.configuration.default
 
-            puts "Sandbox: Moved to #{Sandboxy.configuration.environment.to_s} environment" if $sandbox != previous_sandbox
+            puts "Sandboxy: Moved to #{Sandboxy.configuration.default} environment" if Sandboxy.environment != previous_environment
         end
 
     end
