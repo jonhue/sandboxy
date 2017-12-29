@@ -4,7 +4,8 @@ module Sandboxy
         attr_accessor :configuration
 
         def environment
-            $sandboxy || Sandboxy.configuration.default
+            $sandboxy ||= Sandboxy.configuration.default
+            $sandboxy
         end
 
         def environment= value
@@ -13,7 +14,7 @@ module Sandboxy
 
         def method_missing m, *args
             if m.to_s[/(.+)_environment?/]
-                self.environment? $1.singularize.classify
+                self.environment? $1
             else
                 super
             end

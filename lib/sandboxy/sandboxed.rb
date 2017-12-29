@@ -17,9 +17,9 @@ module Sandboxy
 
                 def method_missing m, *args
                     if m.to_s[/(.+)_environment/]
-                        self.environment $1.singularize.classify
+                        self.environment $1
                     elsif m.to_s[/(.+)_environment_scoped/]
-                        self.environment_scoped $1.singularize.classify
+                        self.environment_scoped $1
                     else
                         super
                     end
@@ -49,9 +49,9 @@ module Sandboxy
 
             def method_missing m, *args
                 if m.to_s[/move_environment_(.+)/]
-                    self.move_environment $1.singularize.classify
+                    self.move_environment $1
                 elsif m.to_s[/(.+)_environment?/]
-                    self.environment? $1.singularize.classify
+                    self.environment? $1
                 else
                     super
                 end
@@ -79,18 +79,14 @@ module Sandboxy
             end
 
             def environment
-                Sandboxy.configuration.default if self.sandbox.nil?
+                return Sandboxy.configuration.default if self.sandbox.nil?
                 self.sandbox.environment
             end
 
             private
 
             def set_environment
-                if Sandboxy.environment != Sandboxy.configuration.default
-                    sandbox = self.build_sandbox
-                    sandbox.environment = Sandboxy.environment
-                    raise self.sandbox.environment.inspect
-                end
+                sandbox = self.build_sandbox environment: Sandboxy.environment unless Sandboxy.environment == Sandboxy.configuration.default
             end
 
         end

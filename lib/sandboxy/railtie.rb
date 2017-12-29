@@ -17,7 +17,6 @@ module Sandboxy
 
         config.after_initialize do
             puts "Sandboxy: Using #{Sandboxy.configuration.default} environment"
-            Sandboxy.environment = Sandboxy.configuration.default
         end
 
     end

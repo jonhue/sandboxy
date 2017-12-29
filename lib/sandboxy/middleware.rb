@@ -9,7 +9,7 @@ module Sandboxy
             require 'sandboxy'
 
             previous_environment = Sandboxy.environment
-            Sandboxy.environment = Sandboxy.configuration.default
+            $sandboxy = nil
 
             puts "Sandboxy: Moved to #{Sandboxy.configuration.default} environment" if Sandboxy.environment != previous_environment
         end
