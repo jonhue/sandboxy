@@ -4,6 +4,13 @@
 
 * nothing yet
 
+### 3.0.0 - 2017-12-29
+
+* features
+    * move `Sandbox` model into engine
+    * add support for multiple environments
+    * add `environment` attribute to `Sandbox` instances
+
 ### 2.0.0 - 2017-12-21
 
 * features
