@@ -9,9 +9,9 @@ module Sandboxy
             require 'sandboxy'
 
             previous_sandbox = $sandbox
-            $sandbox = Sandboxy.configuration.environment == 'sandbox' ? true : false
+            $sandbox = Sandboxy.configuration.environment == 'sandbox'
 
-            puts 'Sandbox: Moved to ' + Sandboxy.configuration.environment.to_s + ' environment' if $sandbox != previous_sandbox
+            puts "Sandbox: Moved to #{Sandboxy.configuration.environment.to_s} environment" if $sandbox != previous_sandbox
         end
 
     end

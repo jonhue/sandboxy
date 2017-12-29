@@ -1,4 +1,5 @@
-require 'rails'
+require 'rails/railtie'
+require 'active_record'
 
 
 module Sandboxy
@@ -10,12 +11,13 @@ module Sandboxy
             end
         end
 
-        initializer 'sandboxy.configure_rails_initialization' do |app|
-            require 'sandboxy'
-            puts 'Sandboxy: Using ' + Sandboxy.configuration.environment + ' environment'
+        initializer 'sandboxy.middleware' do |app|
+            app.middleware.use(Sandboxy::Middleware) unless Sandboxy.configuration&.retain_environment
+        end
 
-            $sandbox = Sandboxy.configuration.environment == 'sandbox' ? true : false
-            app.middleware.use(Sandboxy::Middleware) unless Sandboxy.configuration.retain_environment
+        config.after_initialize do
+            puts "Sandboxy: Using #{Sandboxy.configuration.environment} environment"
+            $sandbox = Sandboxy.configuration.environment == 'sandbox'
         end
 
     end

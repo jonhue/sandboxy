@@ -19,7 +19,9 @@ Gem::Specification.new do |gem|
 
     gem.required_ruby_version = '>= 2.3'
 
-    gem.add_dependency 'rails', '>= 5.0'
+    gem.add_dependency 'activesupport', '>= 5.0'
+    gem.add_dependency 'activerecord', '>= 5.0'
+    gem.add_dependency 'railties', '>= 5.0'
 
     gem.add_development_dependency 'sqlite3', '~> 1.3'
     gem.add_development_dependency 'shoulda', '~> 3.5'
