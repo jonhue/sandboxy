@@ -13,8 +13,6 @@ ActiveRecord::Migration.verbose = false
 
 load File.dirname(__FILE__) + '/schema.rb'
 
-require File.dirname(__FILE__) + '/../lib/generators/templates/model.rb'
-
 require 'shoulda'
 require 'factory_girl'
 FactoryGirl.find_definitions

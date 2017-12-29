@@ -64,9 +64,9 @@ module Sandboxy
             def move_environment value
                 case value
                 when Sandboxy.configuration.default
-                    self.sandbox.destroy if self.sandbox.present?
+                    self.sandbox.destroy unless self.sandbox.nil?
                 else
-                    if self.sandbox.present?
+                    unless self.sandbox.nil?
                         self.sandbox.update_attributes environment: value
                     else
                         self.sandbox.create! environment: value
@@ -79,14 +79,18 @@ module Sandboxy
             end
 
             def environment
-                Sandboxy.configuration.default unless self.sandbox.present?
+                Sandboxy.configuration.default if self.sandbox.nil?
                 self.sandbox.environment
             end
 
             private
 
             def set_environment
-                self.build_sandbox environment: Sandboxy.environment if Sandboxy.environment != Sandboxy.configuration.default
+                if Sandboxy.environment != Sandboxy.configuration.default
+                    sandbox = self.build_sandbox
+                    sandbox.environment = Sandboxy.environment
+                    raise self.sandbox.environment.inspect
+                end
             end
 
         end

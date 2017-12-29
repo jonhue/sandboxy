@@ -24,10 +24,6 @@ class SandboxyGenerator < Rails::Generators::Base
         migration_template 'migration.rb.erb', 'db/migrate/sandboxy_migration.rb', migration_version: migration_version
     end
 
-    def create_model
-        template 'model.rb', 'app/models/sandbox.rb'
-    end
-
     def show_readme
         readme 'README.md'
     end

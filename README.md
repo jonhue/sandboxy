@@ -72,6 +72,7 @@ In most use cases you would want to add `sandboxy` to a lot of ActiveRecord mode
 
 ```ruby
 class SharedSandbox < ApplicationRecord
+    self.abstract_class = true
     sandboxy
 end
 
