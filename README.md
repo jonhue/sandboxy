@@ -124,7 +124,7 @@ At runtime you can always switch environments anywhere in your application by se
 ```ruby
 Sandboxy.environment = 'live'
 Sandboxy.live_environment? # => true
-Sandboxy.sandbox_environment? # => true
+Sandboxy.sandbox_environment? # => false
 ```
 
 #### Sandbox & APIs
