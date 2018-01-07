@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
     gem.summary               = 'Virtual data-oriented environments for Rails'
     gem.description           = 'Sandboxy allows you to use virtual data-oriented environments inside a Rails application while being able to switch in between at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.'
     gem.authors               = 'Jonas Hübotter'
-    gem.email                 = 'jonas.huebotter@gmail.com'
+    gem.email                 = 'me@jonhue.me'
     gem.homepage              = 'https://github.com/jonhue/sandboxy'
     gem.license               = 'MIT'
 
