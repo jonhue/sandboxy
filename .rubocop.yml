@@ -1,5 +1,3 @@
-require: rubocop-rspec
-
 AllCops:
   Exclude:
     - vendor/**/*
@@ -10,7 +8,7 @@ Gemspec/RequiredRubyVersion:
 
 Metrics/BlockLength:
   Exclude:
-    - spec/**/*_spec.rb
+    - test/**/*_test.rb
 
 Style/Documentation:
   Enabled: false

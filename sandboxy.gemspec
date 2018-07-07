@@ -24,11 +24,12 @@ Gem::Specification.new do |gem|
                                   'app/**/*']
   gem.require_paths         = ['lib']
 
-  gem.required_ruby_version = '>= 2.2.2'
+  gem.required_ruby_version = '>= 2.3.0'
 
   gem.add_dependency 'rails', '>= 5.0'
 
-  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'factory_bot'
   gem.add_development_dependency 'rubocop'
-  gem.add_development_dependency 'rubocop-rspec'
+  gem.add_development_dependency 'shoulda'
+  gem.add_development_dependency 'sqlite3'
 end
