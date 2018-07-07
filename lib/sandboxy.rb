@@ -1,14 +1,14 @@
+# frozen_string_literal: true
+
 require 'sandboxy/version'
 
 module Sandboxy
+  require 'sandboxy/configuration'
 
-    require 'sandboxy/configuration'
+  require 'sandboxy/engine'
 
-    require 'sandboxy/engine'
+  autoload :Sandboxed, 'sandboxy/sandboxed'
 
-    autoload :Sandboxed, 'sandboxy/sandboxed'
-
-    require 'sandboxy/middleware'
-    require 'sandboxy/railtie'
-
+  require 'sandboxy/middleware'
+  require 'sandboxy/railtie'
 end

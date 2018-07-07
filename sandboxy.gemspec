@@ -1,28 +1,34 @@
-# -*- encoding: utf-8 -*-
-require File.expand_path(File.join('..', 'lib', 'sandboxy', 'version'), __FILE__)
+# frozen_string_literal: true
+
+require File.expand_path(
+  File.join('..', 'lib', 'sandboxy', 'version'),
+  __FILE__
+)
 
 Gem::Specification.new do |gem|
-    gem.name                  = 'sandboxy'
-    gem.version               = Sandboxy::VERSION
-    gem.platform              = Gem::Platform::RUBY
-    gem.summary               = 'Virtual data-oriented environments for Rails'
-    gem.description           = 'Sandboxy allows you to use virtual data-oriented environments inside a Rails application while being able to switch in between at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.'
-    gem.authors               = 'Jonas Hübotter'
-    gem.email                 = 'me@jonhue.me'
-    gem.homepage              = 'https://github.com/jonhue/sandboxy'
-    gem.license               = 'MIT'
+  gem.name                  = 'sandboxy'
+  gem.version               = Sandboxy::VERSION
+  gem.platform              = Gem::Platform::RUBY
+  gem.summary               = 'Virtual data-oriented environments for Rails'
+  gem.description           = 'Sandboxy allows you to use virtual'\
+                              'data-oriented environments inside a Rails'\
+                              'application while being able to switch in'\
+                              'between at runtime. It achieves that by using a'\
+                              'combination of Rack Middleware and ActiveRecord.'
+  gem.authors               = 'Jonas Hübotter'
+  gem.email                 = 'me@jonhue.me'
+  gem.homepage              = 'https://github.com/jonhue/sandboxy'
+  gem.license               = 'MIT'
 
-    gem.files                 = Dir['README.md', 'CHANGELOG.md', 'LICENSE', 'lib/**/*', 'app/**/*']
-    gem.require_paths         = ['lib']
+  gem.files                 = Dir['README.md', 'LICENSE', 'lib/**/*',
+                                  'app/**/*']
+  gem.require_paths         = ['lib']
 
-    gem.post_install_message  = IO.read('INSTALL.md')
+  gem.required_ruby_version = '>= 2.2.2'
 
-    gem.required_ruby_version = '>= 2.3'
+  gem.add_dependency 'rails', '>= 5.0'
 
-    gem.add_dependency 'rails', '>= 5.0'
-
-    gem.add_development_dependency 'sqlite3', '~> 1.3'
-    gem.add_development_dependency 'shoulda', '~> 3.5'
-    gem.add_development_dependency 'factory_girl', '~> 4.8'
-    gem.add_development_dependency 'tzinfo-data', '~> 1.2017'
+  gem.add_development_dependency 'rspec'
+  gem.add_development_dependency 'rubocop'
+  gem.add_development_dependency 'rubocop-rspec'
 end
