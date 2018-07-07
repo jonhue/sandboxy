@@ -1,6 +1,6 @@
 # Sandboxy
 
-[![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy) <img src="https://travis-ci.org/jonhue/sandboxy.svg?branch=master" />
+[![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy) ![Travis](https://travis-ci.org/jonhue/sandboxy.svg?branch=master)
 
 Sandboxy allows you to use virtual data-oriented environments inside a Rails application while being able to switch between them at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.
 
@@ -10,17 +10,17 @@ Sandboxy allows you to use virtual data-oriented environments inside a Rails app
 
 * [Installation](#installation)
 * [Usage](#usage)
-    * [Setup](#setup)
-    * [`sandboxy` methods](#sandboxy-methods)
-    * [Switching environments](#switching-environments)
-        * [Sandbox & APIs](#sandbox--apis)
+  * [Setup](#setup)
+  * [`sandboxy` methods](#sandboxy-methods)
+  * [Switching environments](#switching-environments)
+    * [Sandbox & APIs](#sandbox--apis)
 * [Configuration](#configuration)
 * [Testing](#testing)
-    * [Test Coverage](#test-coverage)
-* [To Do](#to-do)
+  * [Test Coverage](#test-coverage)
+* [To do](#to-do)
 * [Contributing](#contributing)
-    * [Contributors](#contributors)
-    * [Semantic versioning](#semantic-versioning)
+  * [Contributors](#contributors)
+  * [Semantic versioning](#semantic-versioning)
 * [License](#license)
 
 ---
@@ -35,11 +35,11 @@ gem 'sandboxy'
 
 And then execute:
 
-    $ bundle
+  $ bundle
 
 Or install it yourself as:
 
-    $ gem install sandboxy
+  $ gem install sandboxy
 
 If you always want to be up to date fetch the latest from GitHub in your `Gemfile`:
 
@@ -49,11 +49,11 @@ gem 'sandboxy', github: 'jonhue/sandboxy'
 
 Now run the generator:
 
-    $ rails g sandboxy
+  $ rails g sandboxy
 
 To wrap things up, migrate the changes into your database:
 
-    $ rails db:migrate
+  $ rails db:migrate
 
 ## Usage
 
@@ -63,7 +63,7 @@ Add Sandboxy to the models where you want to separate records depending on their
 
 ```ruby
 class Foo < ApplicationRecord
-    sandboxy
+  sandboxy
 end
 ```
 
@@ -71,8 +71,8 @@ In most use cases you would want to add `sandboxy` to a lot of ActiveRecord mode
 
 ```ruby
 class SharedSandbox < ApplicationRecord
-    self.abstract_class = true
-    sandboxy
+  self.abstract_class = true
+  sandboxy
 end
 
 class Foo < SharedSandbox
@@ -143,7 +143,7 @@ You can configure Sandboxy by passing a block to `configure`. This can be done i
 
 ```ruby
 Sandboxy.configure do |config|
-    config.default = 'sandbox'
+  config.default = 'sandbox'
 end
 ```
 
@@ -161,11 +161,11 @@ Tests are written with Shoulda on top of `Test::Unit` with Factory Girl being us
 2. Clone your forked git locally
 3. Install dependencies
 
-    `$ bundle install`
+  `$ bundle install`
 
 4. Run tests
 
-    `$ rake test`
+  `$ rake test`
 
 ### Test Coverage
 
@@ -175,13 +175,13 @@ Test coverage can be calculated using SimpleCov. Make sure you have the [simplec
 2. Uncomment the relevant section in `test/test_helper.rb`
 3. Run tests
 
-    `$ rake test`
+  `$ rake test`
 
 ---
 
-## To Do
+## To do
 
-[Here](https://github.com/jonhue/sandboxy/projects/1) is the full list of current projects.
+We use [GitHub projects](https://github.com/jonhue/sandboxy/projects/1) to coordinate the work on this project.
 
 To propose your ideas, initiate the discussion by adding a [new issue](https://github.com/jonhue/sandboxy/issues/new).
 
@@ -191,38 +191,8 @@ To propose your ideas, initiate the discussion by adding a [new issue](https://g
 
 We hope that you will consider contributing to Sandboxy. Please read this short overview for some information about how to get started:
 
-[Learn more about contributing to this repository](https://github.com/jonhue/sandboxy/blob/master/CONTRIBUTING.md), [Code of Conduct](https://github.com/jonhue/sandboxy/blob/master/CODE_OF_CONDUCT.md)
-
-### Contributors
-
-Give the people some :heart: who are working on this project. See them all at:
-
-https://github.com/jonhue/sandboxy/graphs/contributors
+[Learn more about contributing to this repository](CONTRIBUTING.md), [Code of Conduct](CODE_OF_CONDUCT.md)
 
 ### Semantic Versioning
 
 Sandboxy follows Semantic Versioning 2.0 as defined at http://semver.org.
-
-## License
-
-MIT License
-
-Copyright (c) 2017 Jonas Hübotter
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
