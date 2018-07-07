@@ -2,7 +2,7 @@ require: rubocop-rspec
 
 AllCops:
   Exclude:
-    - test/**/*
+    - vendor/**/*
   TargetRubyVersion: 2.5
 
 Gemspec/RequiredRubyVersion:
