@@ -11,11 +11,11 @@ We use GitHub issues as a ticket system. You should open an issue if ...
 * you want to contribute to this project *or*
 * you want to request an enhancement or bugfix.
 
-You should not open an issue if ...
+You should **not** open an issue if ...
 
 * you have a question. If you have a question use [Stack Overflow](https://stackoverflow.com) instead or send an email to me@jonhue.me.
 
-When you open an issue use the templates provided.
+When you open an issue use the provided templates.
 
 ## Pull Requests
 
