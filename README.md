@@ -1,6 +1,6 @@
 # Sandboxy
 
-[![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy)![Travis](https://travis-ci.org/jonhue/sandboxy.svg?branch=master)"
+[![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy)![Travis](https://travis-ci.org/jonhue/sandboxy.svg?branch=master)
 
 Sandboxy allows you to use virtual data-oriented environments inside a Rails application while being able to switch between them at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.
 
@@ -17,7 +17,7 @@ Sandboxy allows you to use virtual data-oriented environments inside a Rails app
 * [Configuration](#configuration)
 * [Testing](#testing)
   * [Test Coverage](#test-coverage)
-* [To Do](#to-do)
+* [To do](#to-do)
 * [Contributing](#contributing)
   * [Contributors](#contributors)
   * [Semantic versioning](#semantic-versioning)
@@ -179,9 +179,9 @@ Test coverage can be calculated using SimpleCov. Make sure you have the [simplec
 
 ---
 
-## To Do
+## To do
 
-[Here](https://github.com/jonhue/sandboxy/projects/1) is the full list of current projects.
+We use [GitHub projects](https://github.com/jonhue/sandboxy/projects/1) to coordinate the work on this project.
 
 To propose your ideas, initiate the discussion by adding a [new issue](https://github.com/jonhue/sandboxy/issues/new).
 
