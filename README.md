@@ -1,6 +1,6 @@
 # Sandboxy
 
-[![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy)![Travis](https://travis-ci.org/jonhue/sandboxy.svg?branch=master)
+[![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy) ![Travis](https://travis-ci.org/jonhue/sandboxy.svg?branch=master)
 
 Sandboxy allows you to use virtual data-oriented environments inside a Rails application while being able to switch between them at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.
 
