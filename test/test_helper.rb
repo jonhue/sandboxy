@@ -17,4 +17,4 @@ load File.dirname(__FILE__) + '/schema.rb'
 
 require 'shoulda'
 require 'factory_girl'
-FactoryGirl.find_definitions
+FactoryBot.find_definitions
