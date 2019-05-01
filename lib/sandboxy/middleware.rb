@@ -13,6 +13,7 @@ module Sandboxy
       $sandboxy = nil
 
       return unless Sandboxy.environment != previous_environment
+
       puts "Sandboxy: Moved to #{Sandboxy.configuration.default} environment"
     end
   end

@@ -30,6 +30,7 @@ class SandboxyGenerator < Rails::Generators::Base
 
   def migration_version
     return unless Rails.version >= '5.0.0'
+
     "[#{Rails::VERSION::MAJOR}.#{Rails::VERSION::MINOR}]"
   end
 end
