@@ -2,18 +2,18 @@
 
 FactoryBot.define do
   factory :post, class: Some do |b|
-    b.name 'Post'
+    b.name { 'Post' }
   end
 
   factory :purchase, class: Some do |b|
-    b.name 'Purchase'
+    b.name { 'Purchase' }
   end
 
   factory :book, class: Some do |b|
-    b.name 'Book'
+    b.name { 'Book' }
   end
 
   factory :receipt, class: Some do |b|
-    b.name 'Receipt'
+    b.name { 'Receipt' }
   end
 end

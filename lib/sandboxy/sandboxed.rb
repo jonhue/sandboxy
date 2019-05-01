@@ -84,6 +84,7 @@ module Sandboxy
 
       def environment
         return Sandboxy.configuration.default if sandbox.nil?
+
         sandbox.environment
       end
 
@@ -91,6 +92,7 @@ module Sandboxy
 
       def set_environment
         return if Sandboxy.environment == Sandboxy.configuration.default
+
         sandbox = build_sandbox
         sandbox.environment = Sandboxy.environment
       end

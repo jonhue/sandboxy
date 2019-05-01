@@ -16,5 +16,5 @@ ActiveRecord::Migration.verbose = false
 load File.dirname(__FILE__) + '/schema.rb'
 
 require 'shoulda'
-require 'factory_girl'
+require 'factory_bot'
 FactoryBot.find_definitions
