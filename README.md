@@ -35,11 +35,11 @@ gem 'sandboxy'
 
 And then execute:
 
-  $ bundle
+    $ bundle
 
 Or install it yourself as:
 
-  $ gem install sandboxy
+    $ gem install sandboxy
 
 If you always want to be up to date fetch the latest from GitHub in your `Gemfile`:
 
@@ -49,11 +49,11 @@ gem 'sandboxy', github: 'jonhue/sandboxy'
 
 Now run the generator:
 
-  $ rails g sandboxy
+    $ rails g sandboxy
 
 To wrap things up, migrate the changes into your database:
 
-  $ rails db:migrate
+    $ rails db:migrate
 
 ## Usage
 
@@ -161,11 +161,11 @@ Tests are written with Shoulda on top of `Test::Unit` with Factory Girl being us
 2. Clone your forked git locally
 3. Install dependencies
 
-  `$ bundle install`
+    $ bundle install
 
 4. Run tests
 
-  `$ rake test`
+    $ rake test
 
 ### Test Coverage
 
@@ -175,7 +175,7 @@ Test coverage can be calculated using SimpleCov. Make sure you have the [simplec
 2. Uncomment the relevant section in `test/test_helper.rb`
 3. Run tests
 
-  `$ rake test`
+    $ rake test
 
 ---
 
