@@ -161,11 +161,15 @@ Tests are written with Shoulda on top of `Test::Unit` with Factory Girl being us
 2. Clone your forked git locally
 3. Install dependencies
 
+    ```
     $ bundle install
+    ```
 
 4. Run tests
 
-    $ rake test
+    ```
+    $ bundle exec rake test
+    ```
 
 ### Test Coverage
 
