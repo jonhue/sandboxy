@@ -1,7 +1,5 @@
 # Sandboxy
 
-[![Gem Version](https://badge.fury.io/rb/sandboxy.svg)](https://badge.fury.io/rb/sandboxy) ![Travis](https://travis-ci.org/jonhue/sandboxy.svg?branch=master)
-
 Sandboxy allows you to use virtual data-oriented environments inside a Rails application while being able to switch between them at runtime. It achieves that by using a combination of Rack Middleware and ActiveRecord.
 
 ---
@@ -17,11 +15,9 @@ Sandboxy allows you to use virtual data-oriented environments inside a Rails app
 * [Configuration](#configuration)
 * [Testing](#testing)
   * [Test Coverage](#test-coverage)
-* [To do](#to-do)
+* [Release](#release)
 * [Contributing](#contributing)
-  * [Contributors](#contributors)
   * [Semantic versioning](#semantic-versioning)
-* [License](#license)
 
 ---
 
@@ -183,11 +179,14 @@ Test coverage can be calculated using SimpleCov. Make sure you have the [simplec
 
 ---
 
-## To do
+## Release
 
-We use [GitHub projects](https://github.com/jonhue/sandboxy/projects/1) to coordinate the work on this project.
-
-To propose your ideas, initiate the discussion by adding a [new issue](https://github.com/jonhue/sandboxy/issues/new).
+1. Review breaking changes and deprecations in `CHANGELOG.md`
+2. Change the gem version in `lib/sandboxy/version.rb`
+3. Reset `CHANGELOG.md`
+4. Create a pull request to merge the changes into `master`
+5. After the pull request was merged, create a new release listing the breaking changes and commits on `master` since the last release.
+6. The release workflow will publish the gems to RubyGems and the GitHub Package Registry
 
 ---
 
