@@ -36,8 +36,7 @@ module Sandboxy
   end
 
   class Configuration
-    attr_accessor :default
-    attr_accessor :retain
+    attr_accessor :default, :retain
 
     def initialize
       @default = 'live'
