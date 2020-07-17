@@ -1,6 +1,7 @@
 AllCops:
   Exclude:
     - vendor/**/*
+  NewCops: enable
   TargetRubyVersion: 2.5
 
 Gemspec/RequiredRubyVersion:

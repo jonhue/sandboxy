@@ -12,9 +12,7 @@ module Sandboxy
     end
 
     initializer 'sandboxy.middleware' do |app|
-      unless Sandboxy.configuration&.retain
-        app.middleware.use(Sandboxy::Middleware)
-      end
+      app.middleware.use(Sandboxy::Middleware) unless Sandboxy.configuration&.retain
     end
 
     config.after_initialize do
