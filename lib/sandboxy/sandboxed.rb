@@ -32,13 +32,11 @@ module Sandboxy
         end
       end
 
-      # rubocop:disable Style/OptionalBooleanParameter
       def respond_to_missing?(method, include_private = false)
         super ||
           method.to_s[/(.+)_environment/] ||
           method.to_s[/(.+)_environment_scoped/]
       end
-      # rubocop:enable Style/OptionalBooleanParameter
 
       def environment(value)
         unscope(:joins, :where).environment_scoped value
@@ -65,13 +63,11 @@ module Sandboxy
         end
       end
 
-      # rubocop:disable Style/OptionalBooleanParameter
       def respond_to_missing?(method, include_private = false)
         super ||
           method.to_s[/move_environment_(.+)/] ||
           method.to_s[/(.+)_environment?/]
       end
-      # rubocop:enable Style/OptionalBooleanParameter
 
       def move_environment(environment)
         case environment
