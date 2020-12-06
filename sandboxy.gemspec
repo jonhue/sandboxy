@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
                               'between at runtime. It achieves that by using a'\
                               'combination of Rack Middleware and ActiveRecord.'
   gem.authors               = 'Jonas Hübotter'
-  gem.email                 = 'me@jonhue.me'
+  gem.email                 = 'jonas.huebotter@gmail.com'
   gem.homepage              = 'https://github.com/jonhue/sandboxy'
   gem.license               = 'MIT'
 
