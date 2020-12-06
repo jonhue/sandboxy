@@ -21,11 +21,9 @@ module Sandboxy
       end
     end
 
-    # rubocop:disable Style/OptionalBooleanParameter
     def respond_to_missing?(method, include_private = false)
       super || method.to_s[/(.+)_environment?/]
     end
-    # rubocop:enable Style/OptionalBooleanParameter
 
     def environment?(value)
       environment == value
