@@ -1,4 +1,3 @@
 # frozen_string_literal: true
 
-Dummy::Application.routes.draw do
-end
+Dummy::Application.routes.draw {}
