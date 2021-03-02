@@ -7,7 +7,7 @@ ENV['RAILS_ENV'] = 'test'
 # require 'simplecov'
 # SimpleCov.start
 
-require File.expand_path('dummy30/config/environment.rb', __dir__)
+require File.expand_path('dummy/config/environment.rb', __dir__)
 require 'rails/test_help'
 
 ActiveRecord::Base.logger = Logger.new "#{File.dirname(__FILE__)}/debug.log"
