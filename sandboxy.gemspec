@@ -29,4 +29,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rubocop'
   gem.add_development_dependency 'shoulda'
   gem.add_development_dependency 'sqlite3'
+  gem.metadata = {
+    'rubygems_mfa_required' => 'true'
+  }
 end
